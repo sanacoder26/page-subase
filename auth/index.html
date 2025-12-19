@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <div class="card-box">
+
+      <h2>singup</h2>
+      <p class="text-muted">Welcome back</p>
+      <div class="input-group-box">
+        <label>Name</label>
+        <input type="text" id="username" placeholder="Enter Name">
+      </div>
+
+      <div class="input-group-box">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter email">
+      </div>
+
+      <div class="input-group-box">
+        <label>Password</label>
+        <div class="input-wrap">
+          <input type="password" id="password" placeholder="Enter password">
+          <i class="fa-solid fa-eye-slash toggle" data-target="password"></i>
+        </div>
+      </div>
+
+      <button id="signupBtn">singup</button>
+
+      <div class="text-center mt-3" id='a'>
+        <a href="forget.html">Forgot password?</a><br>
+        <a href="login.html">Alredy have an account</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="singup.js"></script>
+</body>
+</html>

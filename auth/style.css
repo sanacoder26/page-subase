@@ -1,0 +1,118 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-wrapper {
+  width: 100%;
+  padding: 20px;
+}
+
+
+.card-box {
+  max-width: 420px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-box h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.card-box p {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.input-group-box {
+  margin-bottom: 25px;
+}
+
+.input-group-box input {
+  width: 100%;
+padding: 9px;
+  border: #2c5364;
+    border-radius: 7px;
+  
+}
+
+.input-group-box label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.input-wrap input {
+  width: 100%;
+  padding: 12px 42px 12px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.input-wrap input:focus {
+  border-color: #2c5364;
+}
+
+.toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border-color: #2c5364;
+  
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #2c5364;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #203a43;
+}
+.error-msg {
+  color: red;
+  font-size: 13px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .card-box {
+    padding: 24px;
+  }
+}
