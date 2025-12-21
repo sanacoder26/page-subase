@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Todo Dashboard</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(to right, #f8e9d2, #fefae0);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .card-box {
+      background: #fff;
+      width: 100%;
+      max-width: 400px;
+      padding: 32px 24px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    .card-box::before {
+      content: "";
+      height: 5px;
+      width: 100%;
+      background: #198754;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #e8f5e9;
+      color: #198754;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin: 0 auto 12px;
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      padding: 12px;
+      background: #fafafa;
+    }
+
+    .btn-main {
+      background: #198754;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-weight: 600;
+    }
+
+    .btn-main:hover {
+      background: #146c43;
+    }
+
+    .link {
+      color: #198754;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card-box">
+    <div class="icon-circle">
+      <i class="fa-solid fa-right-to-bracket"></i>
+    </div>
+
+    <h2>Welcome Back</h2>
+    <p class="text-center text-muted mb-4">Login to continue</p>
+
+    <form id="loginForm">
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" class="form-control" placeholder="name@example.com">
+      </div>
+
+      <div class="mb-4">
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="********">
+      </div>
+
+      <button class="btn btn-main w-100 mb-3">Login</button>
+
+      <p class="text-center small mb-0">
+        Don’t have an account?
+        <a href="index.html" class="link">Sign Up</a>
+      </p>
+    </form>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src="login.js"></script>
+
+</body>
+</html>
