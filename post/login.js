@@ -57,7 +57,7 @@ loginForm.addEventListener("submit", async (e) => {
       iconColor: "#22c55e",
       confirmButtonColor: "#2563eb"
     }).then(() => {
-      window.location.href = "dashboard.html";
+      window.location.href = "institute.html";
     });
   }
 });
