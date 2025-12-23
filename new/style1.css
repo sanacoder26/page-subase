@@ -1,0 +1,101 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: #2575fc !important;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  color: white;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero h1 {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+}
+
+.hero button {
+  font-size: 1rem;
+}
+
+/* Reviews Section */
+#reviews h2 {
+  color: #333;
+  font-size: 2rem;
+}
+
+#reviews .card {
+  border-radius: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#reviews .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+#reviews .card-text {
+  font-style: italic;
+  color: #555;
+}
+
+#reviews h6 {
+  color: #2575fc;
+  font-weight: 500;
+}
+
+/* Footer */
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  #reviews h2 {
+    font-size: 1.5rem;
+  }
+
+  #reviews .card {
+    padding: 1rem;
+  }
+}

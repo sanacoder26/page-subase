@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User CRUD Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen font-sans flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-teal-600 text-white py-4 shadow-md">
+    <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-center px-2">
+      User Management Dashboard
+    </h1>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1 max-w-7xl mx-auto w-full p-3 sm:p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <!-- Left section -->
+    <section class="bg-white p-4 sm:p-6 rounded-xl shadow-lg space-y-6 md:col-span-1">
+
+      <h2 class="text-lg sm:text-xl font-semibold text-teal-600">
+        Add New User
+      </h2>
+
+      <form id="addUserForm" class="space-y-3 sm:space-y-4">
+        <input
+          type="text"
+          id="name"
+          placeholder="Name"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 outline-none"
+        />
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 outline-none"
+        />
+
+        <button
+          type="submit"
+          class="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 rounded-md transition"
+        >
+          Add User
+        </button>
+      </form>
+
+      <div class="border-t pt-4 space-y-3">
+        <h3 class="text-md sm:text-lg font-semibold text-gray-700">
+          Actions
+        </h3>
+
+        <input
+          type="text"
+          id="allFun"
+          placeholder="Enter User ID"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 outline-none"
+        />
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <button
+            onclick="delUser()"
+            class="bg-red-500 hover:bg-red-600 text-white py-2 rounded-md"
+          >
+            Delete
+          </button>
+
+          <button
+            onclick="findSingle()"
+            class="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md"
+          >
+            Find
+          </button>
+
+          <button
+            onclick="updateUser()"
+            class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-md"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right section -->
+    <section class="bg-white p-4 sm:p-6 rounded-xl shadow-inner md:col-span-2 flex flex-col">
+
+      <h2 class="text-lg sm:text-xl font-semibold text-teal-700 mb-3">
+        API Response
+      </h2>
+
+      <pre
+        id="response"
+        class="flex-1 bg-gray-900 text-green-300 p-4 rounded-lg overflow-y-auto whitespace-pre-wrap text-xs sm:text-sm"
+      >
+Loading...
+      </pre>
+    </section>
+
+  </main>
+
+<script>
+  const API = "https://curd-backend-production-c6c7.up.railway.app/users";
+  const responseBox = document.getElementById("response");
+
+  // Display helper
+  const show = (data) => {
+    responseBox.textContent = JSON.stringify(data, null, 2);
+  };
+
+  // Add user
+  document.getElementById("addUserForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if (!name || !email) {
+      alert("Fill all fields");
+      return;
+    }
+
+    try {
+      const res = await fetch(API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email })
+      });
+
+      const data = await res.json();
+      show(data);
+
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+
+      getAllUsers();
+
+    } catch (error) {
+      show({ error: error.message });
+    }
+  });
+
+  // Get all users
+  async function getAllUsers() {
+    try {
+      const res = await fetch(API);
+      const data = await res.json();
+      show(data);
+    } catch (error) {
+      show({ error: error.message });
+    }
+  }
+
+  // Delete user
+  async function delUser() {
+    const id = document.getElementById("allFun").value.trim();
+
+    if (!id) {
+      alert("Enter valid ID");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API}/${id}`, {
+        method: "DELETE"
+      });
+
+      const data = await res.json();
+      show(data);
+
+      getAllUsers();
+
+    } catch (error) {
+      show({ error: error.message });
+    }
+  }
+
+  // Find single user
+  async function findSingle() {
+    const id = document.getElementById("allFun").value.trim();
+
+    if (!id) {
+      alert("Enter valid ID");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API}/${id}`);
+      const data = await res.json();
+
+      show(data);
+
+      const user = data.user || data.data || data;
+
+      if (user.name && user.email) {
+        document.getElementById("name").value = user.name;
+        document.getElementById("email").value = user.email;
+      }
+
+    } catch (error) {
+      show({ error: error.message });
+    }
+  }
+
+  // Update user
+  async function updateUser() {
+    const id = document.getElementById("allFun").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    if (!id || !name || !email) {
+      alert("Fill all fields to update");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API}/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email })
+      });
+
+      const data = await res.json();
+      show(data);
+
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("allFun").value = "";
+
+      getAllUsers();
+
+    } catch (error) {
+      show({ error: error.message });
+    }
+  }
+
+  // Initial load
+  getAllUsers();
+</script>
+
+</body>
+</html>

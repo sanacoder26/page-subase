@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple E-Commerce</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">iPhone Bazaar</div>
+    <nav>
+      <a href="admin.html" class="admin-link">Order Now</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Popular iPhone Models</h1>
+
+    <section id="productsGrid" class="grid">
+    </section>
+  </main>
+  <div id="orderModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModal">&times;</button>
+      <div class="modal-left">
+        <img id="modalImage" src="" alt="Product image" />
+      </div>
+      <div class="modal-right">
+        <h2 id="modalTitle">Product Title</h2>
+        <p id="modalPrice" class="price">Rs. 0</p>
+
+        <form id="orderForm">
+          <input required id="custName" placeholder="Full Name" />
+          <input required id="custEmail" type="email" placeholder="Email" />
+          <input required id="custPhone" placeholder="Phone Number" />
+          <input required id="custQty" type="number" min="1" value="1" placeholder="Quantity" />
+          <textarea required id="custAddress" rows="3" placeholder="Address"></textarea>
+          <button type="submit" class="primary">Confirm Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>2025 iPhone Bazaar — Simple student project</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

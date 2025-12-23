@@ -1,0 +1,91 @@
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8f9fa;
+    color: #333;
+}
+
+/* Hero Section */
+header#hero {
+    background-image:url('https://cdn.pixabay.com/animation/2023/02/19/06/46/06-46-06-605_512.gif');
+    color:blue;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+header#hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+header#hero p {
+    font-size: 1.2rem;
+}
+
+/* Course Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #ffffff;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card h5 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer#footer {
+    background-color: #007bff;
+    color: white;
+}
+
+footer#footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Responsive Text */
+@media (max-width: 768px) {
+    header#hero h1 {
+        font-size: 2.2rem;
+    }
+
+    header#hero p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header#hero h1 {
+        font-size: 1.8rem;
+    }
+
+    header#hero p {
+        font-size: 0.9rem;
+    }
+}

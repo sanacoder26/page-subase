@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin — Orders</title>
+  <link rel="stylesheet" href="style.css"/>
+
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <header>
+    <h1>Admin Panel — Orders</h1>
+    <a class="back" href="index.html">Back to Store</a>
+  </header>
+
+  <div style="margin-bottom:12px;">
+    <button id="clearAll" class="clear">Clear All Orders</button>
+    <button id="refreshBtn" class="info">Refresh</button>
+  </div>
+
+  <main id="ordersContainer" class="orders"></main>
+
+  <script src="admin.js"></script>
+
+  <script>
+    // Clear All Button
+    document.getElementById("clearAll").addEventListener("click", () => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "This will delete all orders.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete",
+        cancelButtonText: "Cancel"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.removeItem("orders");
+          document.getElementById("ordersContainer").innerHTML = "";
+          Swal.fire("Deleted!", "All orders have been removed.", "success");
+        }
+      });
+    });
+
+    // Refresh Button
+    document.getElementById("refreshBtn").addEventListener("click", () => {
+      Swal.fire({
+        title: "Refreshing",
+        text: "Orders list updated.",
+        icon: "success",
+        timer: 1200,
+        showConfirmButton: false
+      });
+
+      location.reload();
+    });
+  </script>
+
+</body>
+</html>
