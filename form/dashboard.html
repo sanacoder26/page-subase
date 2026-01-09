@@ -1,0 +1,65 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posts</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100">
+
+<header class="fixed top-0 left-0 w-full bg-white shadow z-50 p-4 flex justify-between items-center">
+  <h1 class="font-bold text-xl">My Dashboard</h1>
+  <button id="logoutBtn" class="text-red-600 hover:text-red-800">Logout</button>
+</header>
+
+<main class="pt-20 max-w-3xl mx-auto p-4">
+
+  <div class="bg-white p-4 rounded shadow mb-6">
+    <textarea id="postContent" placeholder="What's on your mind?" class="w-full border p-2 rounded mb-2"></textarea>
+    <input type="file" id="postImageFile" class="w-full mb-2">
+    <button id="addPostBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Post</button>
+  </div>
+
+ User Posts
+  <div id="postsContainer" class="space-y-6"></div>
+</main>
+
+<script type="module" src="Dacboard.js"></script>
+</body>
+</html> 
+ -->
+
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>Create Post</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<header class="bg-white border-b">
+  <div class="max-w-md mx-auto px-4 h-14 flex items-center">
+    <a href="feed.html">← Back</a>
+  </div>
+</header>
+
+<div class="max-w-md mx-auto bg-white p-4 mt-6 rounded shadow">
+  <textarea id="content"
+    class="w-full border p-2 rounded mb-2"
+    placeholder="Write caption..."></textarea>
+
+  <input type="file" id="image" class="mb-3">
+
+  <button onclick="createPost()"
+    class="bg-blue-500 text-white w-full py-2 rounded">
+    Share
+  </button>
+</div>
+
+<script type="module" src="Dacboard.js"></script>
+</body>
+</html>

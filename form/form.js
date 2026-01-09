@@ -1,7 +1,7 @@
 
 import supabase  from "./config.js";
 
-// Form element
+// /// Form element
 const form = document.getElementById("instituteForm");
 
 // Check if user is logged in
@@ -10,11 +10,10 @@ async function isLoggedIn() {
   return session !== null;
 }
 
-// Handle form submission
-form.addEventListener("submit", async (e) => {
+// Main submit handler as an async function
+async function handleFormSubmit(e) {
   e.preventDefault();
 
-  // Prevent submission if not logged in
   if (!await isLoggedIn()) {
     Swal.fire({
       icon: "warning",
@@ -76,4 +75,7 @@ form.addEventListener("submit", async (e) => {
       text: err.message
     });
   }
-});
+}
+
+// Attach submit listener
+form.addEventListener("submit", handleFormSubmit);

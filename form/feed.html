@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Instagram Feed</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- HEADER -->
+<header class="fixed top-0 w-full bg-white border-b z-50">
+  <div class="max-w-md mx-auto flex justify-between items-center px-4 h-14">
+    <h1 class="text-xl font-semibold">Instagram</h1>
+    <div class="flex gap-4">
+      <a href="dashboard.html">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </a>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+        viewBox="0 0 24 24">
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l7.8-7.6a5.5 5.5 0 0 0 0-7.8z"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="h-14"></div>
+
+<!-- FEED -->
+<div id="feed" class="max-w-md mx-auto pt-4"></div>
+
+<!-- EDIT MODAL -->
+<div id="editModal"
+  class="fixed inset-0 bg-black/50 hidden justify-center items-center">
+
+  <div class="bg-white w-[400px] p-4 rounded">
+    <h3 class="font-semibold mb-2">Edit Post</h3>
+    <textarea id="editContent"
+      class="w-full border p-2 rounded mb-2"></textarea>
+    <input type="file" id="editImage" class="mb-3">
+    <div class="flex justify-end gap-2">
+      <button onclick="closeEdit()">Cancel</button>
+      <button onclick="updatePost()"
+        class="bg-blue-500 text-white px-4 py-1 rounded">
+        Update
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="feed.js"></script>
+</body>
+</html>
