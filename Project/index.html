@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Post App - Supabase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .auth-container, .profile-container, .posts-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .btn-sm {
+            width: auto;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .post {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .post-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .user-info {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #c33;
+        }
+        .success {
+            background: #efe;
+            color: #3c3;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #3c3;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #666;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        /* Desktop optimizations - add this at the end of <style> */
+@media (min-width: 768px) {  /* Tablets and Desktop */
+    .container {
+        max-width: 1100px;  /* تھوڑا چوڑا بناؤ */
+        padding: 40px;
+    }
+
+    .posts-container {
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    #posts-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));  /* 2-3 کالم ڈیسک ٹاپ پر */
+        gap: 25px;
+    }
+
+    .post {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;  /* equal height cards */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .post-header {
+        flex-wrap: nowrap;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .post-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nav-buttons {
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .btn-sm {
+        padding: 12px 30px;
+        font-size: 1.1em;
+    }
+
+    /* Create Post Form on Desktop */
+    #createPostForm {
+        max-width: 700px;
+        margin: 0 auto 40px;
+    }
+}
+
+/* Extra for very large screens */
+@media (min-width: 1200px) {
+    #posts-list {
+        grid-template-columns: repeat(3, 1fr);  /* 3 کالم بڑے ڈیسک ٹاپ پر */
+    }
+}
+    </style>
+    <!-- SweetAlert2 CDN for popups -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Auth Section -->
+        <div id="auth-section" class="auth-container">
+            <h1 style="text-align:center; margin-bottom:30px; color:#333; font-size:2.5em;">📱 Social App</h1>
+            
+            <div id="login-form">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                    <p style="text-align:center; margin-top:20px;">
+                        Don't have account? <a href="#" id="showSignup" style="color:#667eea; cursor:pointer; text-decoration:none;">Sign Up</a>
+                    </p>
+                </form>
+            </div>
+
+            <div id="signup-form" class="hidden">
+                <h2>Sign Up</h2>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signup-password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" id="signup-name" required>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                    <p style="text-align:center; margin-top:20px;">
+                        Already have account? <a href="#" id="showLogin" style="color:#667eea; cursor:pointer; text-decoration:none;">Login</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="profile-section" class="profile-container hidden">
+            <div class="nav-buttons">
+                <button class="btn-sm" onclick="showProfileView()">👤 Profile</button>
+                <button class="btn-sm" onclick="showPostsView()">📝 Posts</button>
+                <button class="btn-sm" onclick="logout()">🚪 Logout</button>
+            </div>
+            
+            <div id="profile-content">
+                <h2>👤 Your Profile</h2>
+                <div class="user-info">
+                    <img id="user-avatar" src="https://placehold.co/100x100" class="avatar" alt="Profile Picture">
+                    <h3 id="user-name">Loading...</h3>
+                    <p id="user-email">-</p>
+                </div>
+                
+                <form id="updateProfileForm">
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" id="profile-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Profile Picture</label>
+                        <input type="file" id="profile-pic" accept="image/*">
+                    </div>
+                    <button type="submit">Update Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Posts Section (always visible, but create form hidden if not logged in) -->
+        <div id="posts-section" class="posts-container">
+            <div class="nav-buttons hidden" id="logged-in-nav">
+                <button class="btn-sm" onclick="showProfileView()">👤 Profile</button>
+                <button class="btn-sm" onclick="showPostsView()">📝 Posts</button>
+                <button class="btn-sm" onclick="logout()">🚪 Logout</button>
+            </div>
+            
+            <h2>📝 All Posts</h2>
+            
+            <!-- Create Post Form (hidden if not logged in) -->
+            <form id="createPostForm" class="post hidden">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="post-title" placeholder="Post title..." required>
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea id="post-content" rows="4" placeholder="What's on your mind?" required></textarea>
+                </div>
+                <button type="submit">Post ➕</button>
+            </form>
+
+            <!-- Posts List -->
+            <div id="posts-list">
+                <div class="loading">Loading posts...</div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div id="messages"></div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>
